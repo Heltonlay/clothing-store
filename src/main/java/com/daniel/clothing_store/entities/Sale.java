@@ -1,6 +1,8 @@
 package com.daniel.clothing_store.entities;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import com.daniel.clothing_store.entities.enums.PaymentMethod;
@@ -9,6 +11,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Sale {
@@ -19,17 +23,20 @@ public class Sale {
 	private PaymentMethod paymentType;
 	private Double value;
 	private Date date;
-	//private List<Product> products;
+	@ManyToOne
+	private Employee employee;
+	@ManyToMany(mappedBy = "sales")
+	private List<Clothing> clothings;
 
 	public Sale() {
 	}
 
-	public Sale(Long id, PaymentMethod paymentType, Double value, Date date) {
+	public Sale(Long id, PaymentMethod paymentType, Double value, Date date, Employee employee) {
 		this.id = id;
 		this.paymentType = paymentType;
 		this.value = value;
 		this.date = date;
-		//this.products = products;
+		this.employee = employee;
 	}
 
 	public Long getId() {
@@ -64,16 +71,20 @@ public class Sale {
 		this.date = date;
 	}
 
-	//public List<Product> getProducts() {
-		//return products;
-	//}
-
-	public void addProducts(Product... products) {
-		//this.products.addAll(Arrays.asList(products));
+	public List<Clothing> getClothings() {
+		return clothings;
 	}
 
-	public void removeProducts(Product... products) {
-		//this.products.removeAll(Arrays.asList(products));
+	public void addClothings(Clothing... clothings) {
+		this.clothings.addAll(Arrays.asList(clothings));
+	}
+
+	public void addClothings(List<Clothing> clothings) {
+		this.clothings.addAll(clothings);
+	}
+
+	public void removeClothings(Clothing... clothings) {
+		this.clothings.removeAll(Arrays.asList(clothings));
 	}
 
 	@Override

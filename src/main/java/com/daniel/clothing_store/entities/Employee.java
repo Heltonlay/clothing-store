@@ -1,13 +1,14 @@
 package com.daniel.clothing_store.entities;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Employee {
@@ -16,18 +17,18 @@ public class Employee {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	private String address;
 	private Date admissionDate;
 	private Double baseSalary;
 	private Double commission;
+	@OneToMany(mappedBy = "employee")
+	private List<Sale> sales;
 
 	public Employee() {
 	}
 
-	public Employee(Long id, String name, String address, Date admissionDate, Double baseSalary, Double commission) {
+	public Employee(Long id, String name, Date admissionDate, Double baseSalary, Double commission) {
 		this.id = id;
 		this.name = name;
-		this.address = address;
 		this.admissionDate = admissionDate;
 		this.baseSalary = baseSalary;
 		this.commission = commission;
@@ -47,14 +48,6 @@ public class Employee {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
 	}
 
 	public Date getAdmissionDate() {

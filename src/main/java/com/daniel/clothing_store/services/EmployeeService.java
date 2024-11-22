@@ -39,7 +39,6 @@ public class EmployeeService {
 	public void update(Employee updatedEmployee) {
 		Employee employee = findById(updatedEmployee.getId());
 		employee.setName(updatedEmployee.getName());
-		employee.setAddress(updatedEmployee.getAddress());
 		employee.setAdmissionDate(updatedEmployee.getAdmissionDate());
 		employee.setBaseSalary(updatedEmployee.getBaseSalary());
 		employee.setCommission(updatedEmployee.getCommission());

@@ -1,31 +1,35 @@
 package com.daniel.clothing_store.entities;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.ManyToMany;
 
 @Entity
-public class Product {
-	
+public class Clothing {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private Double price;
 	private Integer quantityInStock;
-	private Integer sales;
-	
-	public Product() {
+	@ManyToMany(mappedBy = "clothings")
+	private List<Sale> sales;
+
+	public Clothing() {
 	}
 
-	public Product(Long id, String name, Double price) {
+	public Clothing(Long id, String name, Double price, Integer quantityInStock) {
 		this.id = id;
 		this.name = name;
 		this.price = price;
+		this.quantityInStock = quantityInStock;
 	}
 
 	public Long getId() {
@@ -60,12 +64,20 @@ public class Product {
 		this.quantityInStock = quantityInStock;
 	}
 
-	public Integer getSales() {
+	public List<Sale> getSales() {
 		return sales;
 	}
 
-	public void setSales(Integer sales) {
-		this.sales = sales;
+	public void addSales(Sale... sales) {
+		this.sales.addAll(Arrays.asList(sales));
+	}
+
+	public void addSales(List<Sale> sales) {
+		this.sales.addAll(sales);
+	}
+
+	public void removeSales(Sale... sales) {
+		this.sales.removeAll(Arrays.asList(sales));
 	}
 
 	@Override
@@ -81,8 +93,8 @@ public class Product {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Product other = (Product) obj;
+		Clothing other = (Clothing) obj;
 		return Objects.equals(id, other.id);
 	}
-	
+
 }
