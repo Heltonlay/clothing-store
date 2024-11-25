@@ -1,8 +1,11 @@
 package com.daniel.clothing_store.entities;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,7 +22,8 @@ public class Category {
 	private String name;
 
 	@ManyToMany
-	private List<Clothing> clothings;
+	@JsonIgnore
+	private List<Clothing> clothings = new ArrayList<>();
 
 	public Category() {
 	}

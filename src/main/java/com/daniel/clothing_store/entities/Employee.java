@@ -1,7 +1,8 @@
 package com.daniel.clothing_store.entities;
 
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
@@ -19,20 +20,18 @@ public class Employee {
 	private String name;
 	private Date admissionDate;
 	private Double baseSalary;
-	private Double commission;
-	
+
 	@OneToMany
-	private List<Sale> sales;
+	private Map<Date, Sale> sales = new HashMap<>();
 
 	public Employee() {
 	}
 
-	public Employee(Long id, String name, Date admissionDate, Double baseSalary, Double commission) {
+	public Employee(Long id, String name, Date admissionDate, Double baseSalary) {
 		this.id = id;
 		this.name = name;
 		this.admissionDate = admissionDate;
 		this.baseSalary = baseSalary;
-		this.commission = commission;
 	}
 
 	public Long getId() {
@@ -67,12 +66,16 @@ public class Employee {
 		this.baseSalary = baseSalary;
 	}
 
-	public Double getCommission() {
-		return commission;
+	public Double getCommission(Date date) {
+		return sales.get(date).getEmployeeCommission();
 	}
 
-	public void setCommission(Double commission) {
-		this.commission = commission;
+	public void addSale(Date date, Sale sale) {
+		this.sales.put(date, sale);
+	}
+
+	public void removeSale(Date date) {
+		this.sales.remove(date);
 	}
 
 	@Override
@@ -91,5 +94,5 @@ public class Employee {
 		Employee other = (Employee) obj;
 		return Objects.equals(id, other.id);
 	}
-	
+
 }

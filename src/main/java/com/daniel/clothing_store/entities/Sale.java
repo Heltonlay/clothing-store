@@ -1,5 +1,6 @@
 package com.daniel.clothing_store.entities;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 
@@ -23,11 +25,11 @@ public class Sale {
 	private PaymentMethod paymentType;
 	private Double value;
 	private Date date;
-	
+
 	@ManyToOne
 	private Employee employee;
 	@ManyToMany
-	private List<Clothing> clothings;
+	private List<Clothing> clothings = new ArrayList<>();
 
 	public Sale() {
 	}
@@ -38,6 +40,10 @@ public class Sale {
 		this.value = value;
 		this.date = date;
 		this.employee = employee;
+	}
+
+	public Double getEmployeeCommission() {
+		return value * 0.1;
 	}
 
 	public Long getId() {
@@ -70,6 +76,14 @@ public class Sale {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
 	public List<Clothing> getClothings() {

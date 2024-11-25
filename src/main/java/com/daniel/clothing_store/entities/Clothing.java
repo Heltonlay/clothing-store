@@ -1,5 +1,6 @@
 package com.daniel.clothing_store.entities;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -21,9 +22,9 @@ public class Clothing {
 	private Integer quantityInStock;
 
 	@ManyToMany
-	private List<Sale> sales;
+	private List<Sale> sales = new ArrayList<>();
 	@ManyToMany
-	private List<Category> categories;
+	private List<Category> categories = new ArrayList<>();
 
 	public Clothing() {
 	}
@@ -81,6 +82,18 @@ public class Clothing {
 
 	public void removeSales(Sale... sales) {
 		this.sales.removeAll(Arrays.asList(sales));
+	}
+
+	public void addCategories(Category... categories) {
+		this.categories.addAll(Arrays.asList(categories));
+	}
+
+	public void addCategories(List<Category> categories) {
+		this.categories.addAll(categories);
+	}
+
+	public void removeCategories(Category... categories) {
+		this.categories.removeAll(Arrays.asList(categories));
 	}
 
 	@Override

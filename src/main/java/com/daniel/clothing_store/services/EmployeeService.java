@@ -41,7 +41,6 @@ public class EmployeeService {
 		employee.setName(updatedEmployee.getName());
 		employee.setAdmissionDate(updatedEmployee.getAdmissionDate());
 		employee.setBaseSalary(updatedEmployee.getBaseSalary());
-		employee.setCommission(updatedEmployee.getCommission());
 		repository.save(employee);
 	}
 
