@@ -23,9 +23,10 @@ public class Sale {
 	private PaymentMethod paymentType;
 	private Double value;
 	private Date date;
+	
 	@ManyToOne
 	private Employee employee;
-	@ManyToMany(mappedBy = "sales")
+	@ManyToMany
 	private List<Clothing> clothings;
 
 	public Sale() {

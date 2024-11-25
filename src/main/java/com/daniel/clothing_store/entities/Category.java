@@ -1,6 +1,6 @@
 package com.daniel.clothing_store.entities;
 
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,31 +8,25 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 
 @Entity
-public class Employee {
+public class Category {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	private Date admissionDate;
-	private Double baseSalary;
-	private Double commission;
-	
-	@OneToMany
-	private List<Sale> sales;
 
-	public Employee() {
+	@ManyToMany
+	private List<Clothing> clothings;
+
+	public Category() {
 	}
 
-	public Employee(Long id, String name, Date admissionDate, Double baseSalary, Double commission) {
+	public Category(Long id, String name) {
 		this.id = id;
 		this.name = name;
-		this.admissionDate = admissionDate;
-		this.baseSalary = baseSalary;
-		this.commission = commission;
 	}
 
 	public Long getId() {
@@ -51,28 +45,20 @@ public class Employee {
 		this.name = name;
 	}
 
-	public Date getAdmissionDate() {
-		return admissionDate;
+	public List<Clothing> getClothings() {
+		return clothings;
 	}
 
-	public void setAdmissionDate(Date admissionDate) {
-		this.admissionDate = admissionDate;
+	public void addClothings(Clothing... clothings) {
+		this.clothings.addAll(Arrays.asList(clothings));
 	}
 
-	public Double getBaseSalary() {
-		return baseSalary;
+	public void addClothings(List<Clothing> clothings) {
+		this.clothings.addAll(clothings);
 	}
 
-	public void setBaseSalary(Double baseSalary) {
-		this.baseSalary = baseSalary;
-	}
-
-	public Double getCommission() {
-		return commission;
-	}
-
-	public void setCommission(Double commission) {
-		this.commission = commission;
+	public void removeClothings(Clothing clothing) {
+		this.clothings.removeAll(clothings);
 	}
 
 	@Override
@@ -88,8 +74,8 @@ public class Employee {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Employee other = (Employee) obj;
+		Category other = (Category) obj;
 		return Objects.equals(id, other.id);
 	}
-	
+
 }

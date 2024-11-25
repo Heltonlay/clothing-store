@@ -19,8 +19,11 @@ public class Clothing {
 	private String name;
 	private Double price;
 	private Integer quantityInStock;
-	@ManyToMany(mappedBy = "clothings")
+
+	@ManyToMany
 	private List<Sale> sales;
+	@ManyToMany
+	private List<Category> categories;
 
 	public Clothing() {
 	}
