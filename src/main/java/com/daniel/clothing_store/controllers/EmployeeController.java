@@ -1,5 +1,6 @@
 package com.daniel.clothing_store.controllers;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.daniel.clothing_store.entities.Employee;
 import com.daniel.clothing_store.services.EmployeeService;
@@ -37,9 +39,10 @@ public class EmployeeController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Long> insert(@RequestBody Employee employee) {
+	public ResponseEntity<URI> insert(@RequestBody Employee employee) {
 		Long id = service.insert(employee);
-		return ResponseEntity.status(HttpStatus.CREATED).body(id);
+		URI path = ServletUriComponentsBuilder.fromCurrentRequest().buildAndExpand(id).toUri();
+		return ResponseEntity.status(HttpStatus.CREATED).body(path);
 	}
 
 	@PostMapping("/{id}")

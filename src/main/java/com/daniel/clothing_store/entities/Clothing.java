@@ -5,13 +5,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
+@Table(name = "clothing")
 public class Clothing {
 
 	@Id
@@ -20,8 +25,11 @@ public class Clothing {
 	private String name;
 	private Double price;
 	private Integer quantityInStock;
+	@Transient
+	private Integer salesQuantity;
 
 	@ManyToMany
+	@JsonIgnore
 	private List<Sale> sales = new ArrayList<>();
 	@ManyToMany
 	private List<Category> categories = new ArrayList<>();
@@ -68,6 +76,11 @@ public class Clothing {
 		this.quantityInStock = quantityInStock;
 	}
 
+	public Integer getSalesQuantity() {
+		salesQuantity = sales.size();
+		return salesQuantity;
+	}
+
 	public List<Sale> getSales() {
 		return sales;
 	}
@@ -82,6 +95,10 @@ public class Clothing {
 
 	public void removeSales(Sale... sales) {
 		this.sales.removeAll(Arrays.asList(sales));
+	}
+
+	public List<Category> getCategories() {
+		return categories;
 	}
 
 	public void addCategories(Category... categories) {

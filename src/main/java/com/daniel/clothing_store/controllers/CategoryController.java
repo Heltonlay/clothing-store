@@ -1,5 +1,6 @@
 package com.daniel.clothing_store.controllers;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.daniel.clothing_store.entities.Category;
 import com.daniel.clothing_store.services.CategoryService;
@@ -31,9 +33,9 @@ public class CategoryController {
 	}
 
 	@GetMapping(params = "name")
-	public ResponseEntity<List<Category>> findProductByName(@RequestParam String name) {
-		List<Category> product = service.findByName(name);
-		return ResponseEntity.ok().body(product);
+	public ResponseEntity<List<Category>> findCategoryByName(@RequestParam String name) {
+		List<Category> category = service.findByName(name);
+		return ResponseEntity.ok().body(category);
 	}
 
 	@GetMapping("/{id}")
@@ -43,9 +45,10 @@ public class CategoryController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Long> insert(@RequestBody Category category) {
+	public ResponseEntity<URI> insert(@RequestBody Category category) {
 		Long id = service.insert(category);
-		return ResponseEntity.status(HttpStatus.CREATED).body(id);
+		URI path = ServletUriComponentsBuilder.fromCurrentRequest().buildAndExpand(id).toUri();
+		return ResponseEntity.status(HttpStatus.CREATED).body(path);
 	}
 
 	@PostMapping("/{id}")
