@@ -32,9 +32,16 @@ public class ClothingController {
 		return ResponseEntity.ok().body(products);
 	}
 
-	@GetMapping(params = "name")
+	@GetMapping(params = { "name" })
 	public ResponseEntity<List<Clothing>> findProductByName(@RequestParam String name) {
 		List<Clothing> product = service.findByName(name);
+		return ResponseEntity.ok().body(product);
+	}
+
+	@GetMapping(params = { "name", "categories" })
+	public ResponseEntity<List<Clothing>> findProductByNameAndCategories(@RequestParam String name,
+			@RequestParam String categories) {
+		List<Clothing> product = service.findByNameAndCategories(name, categories);
 		return ResponseEntity.ok().body(product);
 	}
 

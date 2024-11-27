@@ -23,6 +23,20 @@ public class ClothingService {
 		return repository.findByName(name);
 	}
 
+	public List<Clothing> findByNameAndCategories(String name, String categories) {
+		String[] splitCategories = categories.split(",");
+		String[] nullableCategories = new String[3];
+		for (int i = 0; i < 3; i++) {
+			try {
+				nullableCategories[i] = splitCategories[i];
+			} catch (Exception e) {
+				break;
+			}
+		}
+		return repository.findByNameAndCategories(name, nullableCategories[0], nullableCategories[1],
+				nullableCategories[2]);
+	}
+
 	public Clothing findById(Long id) {
 		Optional<Clothing> clothing = repository.findById(id);
 		if (clothing.isPresent())
