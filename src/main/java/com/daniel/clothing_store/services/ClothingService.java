@@ -25,16 +25,15 @@ public class ClothingService {
 
 	public List<Clothing> findByNameAndCategories(String name, String categories) {
 		String[] splitCategories = categories.split(",");
-		String[] nullableCategories = new String[3];
-		for (int i = 0; i < 3; i++) {
+		String[] cats = new String[5];
+		for (int i = 0; i < 5; i++) {
 			try {
-				nullableCategories[i] = splitCategories[i];
+				cats[i] = splitCategories[i];
 			} catch (Exception e) {
 				break;
 			}
 		}
-		return repository.findByNameAndCategories(name, nullableCategories[0], nullableCategories[1],
-				nullableCategories[2]);
+		return repository.findByNameAndCategories(name, cats[0], cats[1], cats[2], cats[3], cats[4]);
 	}
 
 	public Clothing findById(Long id) {
@@ -42,7 +41,7 @@ public class ClothingService {
 		if (clothing.isPresent())
 			return clothing.get();
 
-		throw new RuntimeException();
+		return null;
 	}
 
 	public Long insert(Clothing product) {
@@ -55,6 +54,7 @@ public class ClothingService {
 		clothing.setName(updatedClothing.getName());
 		clothing.setPrice(updatedClothing.getPrice());
 		clothing.setQuantityInStock(updatedClothing.getQuantityInStock());
+		clothing.setCategories(updatedClothing.getCategories());
 		repository.save(clothing);
 	}
 

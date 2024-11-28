@@ -46,9 +46,9 @@ public class ConfigTest implements CommandLineRunner {
 		Clothing cl2 = new Clothing(null, "feminine shirt blue", 100.0, 15);
 		Clothing cl3 = new Clothing(null, "masculine pants casual", 100.0, 15);
 
-		cl1.addCategories(ct1, ct3);
-		cl2.addCategories(ct2, ct5);
-		cl3.addCategories(ct1, ct4, ct5);
+		cl1.setCategories(Arrays.asList(ct1, ct3));
+		cl2.setCategories(Arrays.asList(ct2, ct5));
+		cl3.setCategories(Arrays.asList(ct1, ct4, ct5));
 
 		clothingRepository.saveAll(Arrays.asList(cl1, cl2, cl3));
 

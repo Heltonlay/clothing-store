@@ -36,12 +36,20 @@ public class Clothing {
 
 	public Clothing() {
 	}
-
+	
 	public Clothing(Long id, String name, Double price, Integer quantityInStock) {
 		this.id = id;
 		this.name = name;
 		this.price = price;
 		this.quantityInStock = quantityInStock;
+	}
+
+	public Clothing(Long id, String name, Double price, Integer quantityInStock, List<Category> categories) {
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.quantityInStock = quantityInStock;
+		this.categories = categories;
 	}
 
 	public Long getId() {
@@ -101,16 +109,8 @@ public class Clothing {
 		return categories;
 	}
 
-	public void addCategories(Category... categories) {
-		this.categories.addAll(Arrays.asList(categories));
-	}
-
-	public void addCategories(List<Category> categories) {
-		this.categories.addAll(categories);
-	}
-
-	public void removeCategories(Category... categories) {
-		this.categories.removeAll(Arrays.asList(categories));
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
 	}
 
 	@Override
