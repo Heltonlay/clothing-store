@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +33,12 @@ public class EmployeeController {
 		return ResponseEntity.ok().body(employees);
 	}
 
+	@GetMapping(params = { "name" })
+	public ResponseEntity<List<Employee>> findProductByName(@RequestParam String name) {
+		List<Employee> employee = service.findByName(name);
+		return ResponseEntity.ok().body(employee);
+	}
+
 	@GetMapping("/{id}")
 	public ResponseEntity<Employee> findEmployeeById(@PathVariable Long id) {
 		Employee employee = service.findById(id);
@@ -41,21 +48,22 @@ public class EmployeeController {
 	@PostMapping
 	public ResponseEntity<URI> insert(@RequestBody Employee employee) {
 		Long id = service.insert(employee);
-		URI path = ServletUriComponentsBuilder.fromCurrentRequest().buildAndExpand(id).toUri();
+		URI path = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
 		return ResponseEntity.status(HttpStatus.CREATED).body(path);
 	}
 
-	@PostMapping("/{id}")
-	public ResponseEntity<Void> update(@RequestBody Employee employee, @RequestParam Long id) {
+	@PutMapping("/{id}")
+	public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody Employee employee) {
 		service.findById(id);
+		employee.setId(id);
 		service.update(employee);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.noContent().build();
 	}
 
-	@DeleteMapping
-	public ResponseEntity<Void> deleteById(@RequestParam Long id) {
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteById(@PathVariable Long id) {
 		service.deleteById(id);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.noContent().build();
 	}
 
 }

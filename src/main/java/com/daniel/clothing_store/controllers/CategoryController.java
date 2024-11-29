@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,21 +48,22 @@ public class CategoryController {
 	@PostMapping
 	public ResponseEntity<URI> insert(@RequestBody Category category) {
 		Long id = service.insert(category);
-		URI path = ServletUriComponentsBuilder.fromCurrentRequest().buildAndExpand(id).toUri();
+		URI path = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
 		return ResponseEntity.status(HttpStatus.CREATED).body(path);
 	}
 
-	@PostMapping("/{id}")
-	public ResponseEntity<Void> update(@RequestBody Category category, @RequestParam Long id) {
+	@PutMapping("/{id}")
+	public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody Category category) {
 		service.findById(id);
+		category.setId(id);
 		service.update(category);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.noContent().build();
 	}
 
-	@DeleteMapping
-	public ResponseEntity<Void> deleteById(@RequestParam Long id) {
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteById(@PathVariable Long id) {
 		service.deleteById(id);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.noContent().build();
 	}
 
 }

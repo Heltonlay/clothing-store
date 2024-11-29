@@ -41,7 +41,7 @@ public class ClothingService {
 		if (clothing.isPresent())
 			return clothing.get();
 
-		return null;
+		throw new RuntimeException();
 	}
 
 	public Long insert(Clothing product) {
