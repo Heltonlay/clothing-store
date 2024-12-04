@@ -46,17 +46,17 @@ public class ConfigTest implements CommandLineRunner {
 		Clothing cl2 = new Clothing(null, "feminine shirt blue", 100.0, 15);
 		Clothing cl3 = new Clothing(null, "masculine pants casual", 100.0, 15);
 
-		cl1.setCategories(Arrays.asList(ct1, ct3));
-		cl2.setCategories(Arrays.asList(ct2, ct5));
-		cl3.setCategories(Arrays.asList(ct1, ct4, ct5));
+		cl1.getCategories().addAll(Arrays.asList(ct1, ct3));
+		cl2.getCategories().addAll(Arrays.asList(ct2, ct5));
+		cl3.getCategories().addAll(Arrays.asList(ct1, ct4, ct5));
 
 		clothingRepository.saveAll(Arrays.asList(cl1, cl2, cl3));
 
-		ct1.addClothings(cl1, cl3);
-		ct2.addClothings(cl2);
-		ct3.addClothings(cl1);
-		ct4.addClothings(cl3);
-		ct5.addClothings(cl2, cl3);
+		ct1.getClothings().addAll(Arrays.asList(cl1, cl3));
+		ct2.getClothings().add(cl2);
+		ct3.getClothings().add(cl1);
+		ct4.getClothings().add(cl3);
+		ct5.getClothings().addAll(Arrays.asList(cl2, cl3));
 		categoryRepository.saveAll(Arrays.asList(ct1, ct2, ct3, ct4, ct5));
 
 		Employee e1 = new Employee(null, "John", new Date(), 1000.0);
@@ -65,17 +65,16 @@ public class ConfigTest implements CommandLineRunner {
 
 		SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
 		Date date1 = sdf1.parse("10/02/2023");
-		Sale s1 = new Sale(null, PaymentMethod.PAYPAL, 150.0, date1, e1);
-		s1.setEmployee(e1);
-		s1.addClothings(cl1, cl3);
+		Sale s1 = new Sale(null, PaymentMethod.PAYPAL, "João Bezerra", date1, e1, cl1, cl3);
+
 		saleRepository.saveAll(Arrays.asList(s1));
 
-		e1.addSale(s1.getDate(), s1);
+		e1.getSales().add(s1);
 
 		employeeRepository.saveAll(Arrays.asList(e1));
 
-		cl1.addSales(s1);
-		cl3.addSales(s1);
+		cl1.getSales().add(s1);
+		cl3.getSales().add(s1);
 
 		clothingRepository.saveAll(Arrays.asList(cl1, cl3));
 	}

@@ -1,9 +1,12 @@
 package com.daniel.clothing_store.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,9 +25,10 @@ public class Employee {
 	private String name;
 	private Date admissionDate;
 	private Double baseSalary;
-
-	@OneToMany
-	private Map<Date, Sale> sales = new HashMap<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "employee")
+	private List<Sale> sales = new ArrayList<>();
 
 	public Employee() {
 	}
@@ -69,15 +73,12 @@ public class Employee {
 	}
 
 	public Double getCommission(Date date) {
-		return sales.get(date).getEmployeeCommission();
+		return sales.stream().filter(x -> x.getDate() == date).collect(Collectors.toList()).get(0)
+				.getEmployeeCommission();
 	}
 
-	public void addSale(Date date, Sale sale) {
-		this.sales.put(date, sale);
-	}
-
-	public void removeSale(Date date) {
-		this.sales.remove(date);
+	public List<Sale> getSales() {
+		return sales;
 	}
 
 	@Override

@@ -23,8 +23,8 @@ public class Category {
 	private Long id;
 	private String name;
 
-	@ManyToMany
 	@JsonIgnore
+	@ManyToMany(mappedBy = "categories")
 	private List<Clothing> clothings = new ArrayList<>();
 
 	public Category() {
@@ -53,18 +53,6 @@ public class Category {
 
 	public List<Clothing> getClothings() {
 		return clothings;
-	}
-
-	public void addClothings(Clothing... clothings) {
-		this.clothings.addAll(Arrays.asList(clothings));
-	}
-
-	public void addClothings(List<Clothing> clothings) {
-		this.clothings.addAll(clothings);
-	}
-
-	public void removeClothings(Clothing clothing) {
-		this.clothings.removeAll(clothings);
 	}
 
 	@Override

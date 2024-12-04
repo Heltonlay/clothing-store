@@ -13,9 +13,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "sale")
@@ -25,27 +27,38 @@ public class Sale {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private PaymentMethod paymentType;
-	private Double value;
+	private String customer;
+	private Double value = 0.0;
 	private Date date;
+	@Transient
+	private Double employeeCommission;
 
 	@ManyToOne
+	@JoinColumn(name = "employee_id")
 	private Employee employee;
 	@ManyToMany
+	@JoinTable(name = "sale_clothing", joinColumns = @JoinColumn(name = "sale_id"), inverseJoinColumns = @JoinColumn(name = "clothing_id"))
 	private List<Clothing> clothings = new ArrayList<>();
 
 	public Sale() {
 	}
 
-	public Sale(Long id, PaymentMethod paymentType, Double value, Date date, Employee employee) {
+	public Sale(Long id, PaymentMethod paymentType, String customer, Date date, Employee employee, Clothing... clothings) {
 		this.id = id;
 		this.paymentType = paymentType;
-		this.value = value;
+		this.customer = customer;
 		this.date = date;
 		this.employee = employee;
+		this.clothings = Arrays.asList(clothings);
+		this.value = this.clothings.stream().map(x -> x.getPrice()).reduce((x, y) -> x + y).get();
+		if (value == null) {
+			this.value = 0.0;
+		}
 	}
 
 	public Double getEmployeeCommission() {
-		return value * 0.1;
+		employeeCommission = value * 0.1;
+		return employeeCommission;
 	}
 
 	public Long getId() {
@@ -58,6 +71,14 @@ public class Sale {
 
 	public PaymentMethod getPaymentType() {
 		return paymentType;
+	}
+
+	public String getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(String customer) {
+		this.customer = customer;
 	}
 
 	public void setPaymentType(PaymentMethod paymentType) {
@@ -90,18 +111,6 @@ public class Sale {
 
 	public List<Clothing> getClothings() {
 		return clothings;
-	}
-
-	public void addClothings(Clothing... clothings) {
-		this.clothings.addAll(Arrays.asList(clothings));
-	}
-
-	public void addClothings(List<Clothing> clothings) {
-		this.clothings.addAll(clothings);
-	}
-
-	public void removeClothings(Clothing... clothings) {
-		this.clothings.removeAll(Arrays.asList(clothings));
 	}
 
 	@Override

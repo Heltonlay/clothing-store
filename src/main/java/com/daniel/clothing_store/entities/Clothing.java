@@ -11,6 +11,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
@@ -28,15 +30,16 @@ public class Clothing {
 	@Transient
 	private Integer salesQuantity;
 
-	@ManyToMany
 	@JsonIgnore
+	@ManyToMany(mappedBy = "clothings")
 	private List<Sale> sales = new ArrayList<>();
 	@ManyToMany
+	@JoinTable(name = "clothing_category", joinColumns = @JoinColumn(name = "clothing_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private List<Category> categories = new ArrayList<>();
 
 	public Clothing() {
 	}
-	
+
 	public Clothing(Long id, String name, Double price, Integer quantityInStock) {
 		this.id = id;
 		this.name = name;
@@ -93,24 +96,8 @@ public class Clothing {
 		return sales;
 	}
 
-	public void addSales(Sale... sales) {
-		this.sales.addAll(Arrays.asList(sales));
-	}
-
-	public void addSales(List<Sale> sales) {
-		this.sales.addAll(sales);
-	}
-
-	public void removeSales(Sale... sales) {
-		this.sales.removeAll(Arrays.asList(sales));
-	}
-
 	public List<Category> getCategories() {
 		return categories;
-	}
-
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
 	}
 
 	@Override

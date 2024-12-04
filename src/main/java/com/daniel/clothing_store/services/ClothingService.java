@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.daniel.clothing_store.entities.Clothing;
+import com.daniel.clothing_store.entities.Sale;
 import com.daniel.clothing_store.repositories.ClothingRepository;
 
 @Service
@@ -54,7 +55,8 @@ public class ClothingService {
 		clothing.setName(updatedClothing.getName());
 		clothing.setPrice(updatedClothing.getPrice());
 		clothing.setQuantityInStock(updatedClothing.getQuantityInStock());
-		clothing.setCategories(updatedClothing.getCategories());
+		clothing.getCategories().clear();
+		clothing.getCategories().addAll(updatedClothing.getCategories());
 		repository.save(clothing);
 	}
 

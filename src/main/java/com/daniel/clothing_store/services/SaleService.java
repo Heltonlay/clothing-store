@@ -19,6 +19,14 @@ public class SaleService {
 		return repository.findAll();
 	}
 
+	public Sale findByEmployeeId(Long id) {
+		Optional<Sale> sale = repository.findByEmployeeId(id);
+		if (sale.isPresent())
+			return sale.get();
+
+		throw new RuntimeException();
+	}
+
 	public Sale findById(Long id) {
 		Optional<Sale> sale = repository.findById(id);
 		if (sale.isPresent())
@@ -27,16 +35,18 @@ public class SaleService {
 		throw new RuntimeException();
 	}
 
-	public Long insert(Sale product) {
-		repository.save(product);
-		return product.getId();
+	public Long insert(Sale sale) {
+		repository.save(sale);
+		return sale.getId();
 	}
 
 	public void update(Sale updatedSale) {
 		Sale sale = findById(updatedSale.getId());
-		sale.setValue(updatedSale.getValue());
-		sale.setDate(updatedSale.getDate());
 		sale.setPaymentType(updatedSale.getPaymentType());
+		sale.setDate(updatedSale.getDate());
+		sale.setEmployee(updatedSale.getEmployee());
+		sale.getClothings().clear();
+		sale.getClothings().addAll(updatedSale.getClothings());
 		repository.save(sale);
 	}
 
