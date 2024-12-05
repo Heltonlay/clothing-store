@@ -34,11 +34,11 @@ public class ConfigTest implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Category ct1 = new Category(null, "masculine");
-		Category ct2 = new Category(null, "feminine");
-		Category ct3 = new Category(null, "sportive");
-		Category ct4 = new Category(null, "casual");
-		Category ct5 = new Category(null, "comfort");
+		Category ct1 = new Category(null, "masculine", 0.1);
+		Category ct2 = new Category(null, "feminine", 0.1);
+		Category ct3 = new Category(null, "sportive", 0.2);
+		Category ct4 = new Category(null, "casual", 0.2);
+		Category ct5 = new Category(null, "comfort", 0.1);
 
 		categoryRepository.saveAll(Arrays.asList(ct1, ct2, ct3, ct4, ct5));
 

@@ -1,7 +1,6 @@
 package com.daniel.clothing_store.entities;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,6 +21,7 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	private Double commissionPercentage;
 
 	@JsonIgnore
 	@ManyToMany(mappedBy = "categories")
@@ -30,9 +30,10 @@ public class Category {
 	public Category() {
 	}
 
-	public Category(Long id, String name) {
+	public Category(Long id, String name, Double commissionPercentage) {
 		this.id = id;
 		this.name = name;
+		this.commissionPercentage = commissionPercentage;
 	}
 
 	public Long getId() {
@@ -49,6 +50,14 @@ public class Category {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Double getCommissionPercentage() {
+		return commissionPercentage;
+	}
+
+	public void setCommissionPercentage(Double commissionPercentage) {
+		this.commissionPercentage = commissionPercentage;
 	}
 
 	public List<Clothing> getClothings() {

@@ -43,7 +43,8 @@ public class Sale {
 	public Sale() {
 	}
 
-	public Sale(Long id, PaymentMethod paymentType, String customer, Date date, Employee employee, Clothing... clothings) {
+	public Sale(Long id, PaymentMethod paymentType, String customer, Date date, Employee employee,
+			Clothing... clothings) {
 		this.id = id;
 		this.paymentType = paymentType;
 		this.customer = customer;
@@ -57,7 +58,18 @@ public class Sale {
 	}
 
 	public Double getEmployeeCommission() {
-		employeeCommission = value * 0.1;
+		double percentage = 0.0;
+
+		for (int i = 0; i < clothings.size(); i++) {
+			for (int j = 0; j < clothings.get(i).getCategories().size(); j++) {
+				double comissionPercentage = clothings.get(i).getCategories().get(j).getCommissionPercentage();
+				if (comissionPercentage > percentage) {
+					percentage = comissionPercentage;
+				}
+			}
+		}
+		
+		employeeCommission = value * percentage;
 		return employeeCommission;
 	}
 
