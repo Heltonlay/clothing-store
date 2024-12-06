@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.daniel.clothing_store.entities.Category;
+import com.daniel.clothing_store.exceptions.NotFoundException;
 import com.daniel.clothing_store.repositories.CategoryRepository;
 
 @Service
@@ -28,7 +29,7 @@ public class CategoryService {
 		if (category.isPresent())
 			return category.get();
 
-		throw new RuntimeException();
+		throw new NotFoundException("Id not found or does not exist.");
 	}
 
 	public Long insert(Category product) {
@@ -43,6 +44,10 @@ public class CategoryService {
 	}
 
 	public void deleteById(Long id) {
+		if(id == null)
+			throw new IllegalArgumentException("Id given is null.");
+		
+		findById(id);
 		repository.deleteById(id);
 	}
 }
