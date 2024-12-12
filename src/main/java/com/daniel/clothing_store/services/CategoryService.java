@@ -40,6 +40,7 @@ public class CategoryService {
 	public void update(Category updatedCategory) {
 		Category category = findById(updatedCategory.getId());
 		category.setName(updatedCategory.getName());
+		category.setCommissionPercentage(updatedCategory.getCommissionPercentage());
 		repository.save(category);
 	}
 
