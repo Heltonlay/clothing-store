@@ -50,7 +50,8 @@ public class Sale {
 		this.customer = customer;
 		this.date = date;
 		this.employee = employee;
-		this.clothings = Arrays.asList(clothings);
+		this.clothings = new ArrayList<>();
+		this.clothings.addAll(Arrays.asList(clothings));
 		this.value = this.clothings.stream().map(x -> x.getPrice()).reduce((x, y) -> x + y).get();
 		if (value == null) {
 			this.value = 0.0;
@@ -68,7 +69,7 @@ public class Sale {
 				}
 			}
 		}
-		
+
 		employeeCommission = value * percentage;
 		return employeeCommission;
 	}
