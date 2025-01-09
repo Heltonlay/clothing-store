@@ -27,7 +27,7 @@
   <li>Apache Maven</li><br>
   <p>Ensure that you have these two programs installed in your PC and that their variables are defined properly.</p>
   <p>
-    1. With your terminal opened inside the project folder, type and enter:<br>
+    1. With your terminal open inside the project folder, execute:<br>
     <code>mvn clean install</code><br>
     2. To run the generated .jar file, execute:<br>
     <code>java -jar ./target/clothing-store.0.0.1.SNAPSHOT.jar</code><br>
