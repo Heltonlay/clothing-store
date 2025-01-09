@@ -25,7 +25,7 @@
 <ul>
   <li>OpenJDK 17 or superior</li>
   <li>Apache Maven</li><br>
-  <p>Ensure that you have these two programs installed on your PC and that their variables are correctly setup.</p>
+  <p>Ensure that you have these two programs installed in your PC and that their variables are defined properly.</p>
   <p>
     1. With your terminal opened inside the project folder, type and enter:<br>
     <code>mvn clean install</code><br>
