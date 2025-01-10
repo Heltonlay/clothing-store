@@ -21,21 +21,22 @@
   <li>Apache Maven</li>
   <li>PostgreSQL</li>
 </ul>
-  <p>
-    Ensure that you have these programs installed in your PC and that their variables are defined properly.<br>
-    Setup PostgreSQL with this configuration:<br>
-    <ul>
-      <li>database: clothing-store<br></li>
-      <li>user: postgres<br></li>
-      <li>password: admin</li>
-    </ul>
-  </p>
-  <p>
-    1. With your terminal open inside the project folder, execute:<br>
-    <code>mvn clean install</code><br>
-    2. To run the generated .jar file, execute:<br>
-    <code>java -jar ./target/clothing-store.0.0.1.SNAPSHOT.jar</code><br>
-  </p>
+<p>
+  Ensure that you have these programs installed in your PC and that their variables are defined properly.<br>
+  Setup PostgreSQL with this configuration:<br>
+  <ul>
+    <li>database: clothing-store<br></li>
+    <li>user: postgres<br></li>
+    <li>password: admin</li>
+  </ul>
+</p>
+<h4>Installing:</h4>
+<p>
+  1. With your terminal open inside the project folder, execute:<br>
+  <code>mvn clean install</code><br>
+  2. To run the generated .jar file, execute:<br>
+  <code>java -jar ./target/clothing-store.0.0.1.SNAPSHOT.jar</code><br>
+</p>
 
 <hr>
 
