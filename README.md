@@ -14,14 +14,6 @@
   <li>Docker</li>
 </ul>
 
-<h3>&#128203; Pendent tasks:</h3>
-<ul>
-  <li>Add front-end pages using React</li>
-  <li>Add Swagger page with endpoints</li>
-  <li>Remove test profile</li>
-  <li>Remove Hibernate create-and-drop</li>
-</ul>
-
 <h3>&#128191; How to install:</h3>
 <h4>Requirements:</h4>
 <ul>
@@ -130,4 +122,14 @@
 <h4>sales:</h4>
 <ul>
   <li><code>/sales/{id}</code>: Deletes a sale.</li>
+</ul>
+
+<hr>
+
+  <h3>&#128203; Pendent tasks:</h3>
+<ul>
+  <li>Add front-end pages using React</li>
+  <li>Add Swagger page with endpoints</li>
+  <li>Remove test profile</li>
+  <li>Remove Hibernate create-and-drop</li>
 </ul>
