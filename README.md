@@ -17,7 +17,7 @@
 <h3>&#128191; How to install:</h3>
 <h4>Requirements:</h4>
 <ul>
-  <li>OpenJDK 17 or superior</li>
+  <li>JDK 17 or superior</li>
   <li>Apache Maven</li>
   <li>PostgreSQL</li>
 </ul>
