@@ -11,6 +11,7 @@
   <li>Maven</li>
   <li>PostgreSQL</li>
   <li>JUnit</li>
+  <li>Mockito</li>
   <li>Docker</li>
 </ul>
 
