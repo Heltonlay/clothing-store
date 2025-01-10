@@ -18,6 +18,8 @@
 <ul>
   <li>Add front-end pages using React</li>
   <li>Add Swagger page with endpoints</li>
+  <li>Remove test profile</li>
+  <li>Remove hibernate create-and-drop</li>
 </ul>
 
 <h3>&#128191; How to install:</h3>
